@@ -1,0 +1,46 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-3">
+      <label for="upload-csv-xml">Click to choose CSV or XML file.</label>
+      <input type="file" accept=".csv,.xml" name="csv-xml" id="upload-csv-xml" file-reader="$ctrl.fileContent" />
+    </div>
+    <div class="col-md-2">
+      <button ng-click='$ctrl.processData($event)'>upload</button>
+    </div>
+      <!--
+      <div nv-file-drop="" uploader="$ctrl.uploader">
+        <div class="well my-drop-zone" nv-file-over="" uploader="$ctrl.uploader">
+            Drop a CSV or XML file here or click to upload
+        </div>
+
+        <p>{{ $ctrl.uploader.queue.length }} files to be uploaded:</p>
+        <ul>
+          <li ng-repeat="item in $ctrl.uploader.queue" style="font:smaller">{{item.file.name}} </li>
+        </ul>
+      </div>
+      -->
+
+  </div>
+  <div class="row" ng-show="$ctrl.showReport">
+    <div class="col-md-12">
+      <div>Report of file <b>{{$ctrl.fileContent[0].name}}</b> validation</div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Transaction Reference</th>
+                    <th>Validation Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in $ctrl.validationReport">
+                    <td><strong>{{item[0]}}</strong></td>
+                    <td><span ng-bind-html="item[1]"></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+  </div>
+  <div class="row" ng-show="$ctrl.parsingError">
+    <div>There was an error parsing file <b>{{$ctrl.fileContent[0].name}}</b>: {{$ctrl.parsingErrorMessage}}</div>
+  </div>
+</div>

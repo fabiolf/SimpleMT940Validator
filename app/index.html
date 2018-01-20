@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" ng-app="mt940ValidatorApp">
+  <head>
+    <meta charset="utf-8">
+    <title>Simple MT940 Validator</title>
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="app.css" />
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    <script src="bower_components/js-sorted-set/sorted-set.min.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+    <script src="app.controller.js"></script>
+
+    <script src="core/core.module.js"></script>
+    <script src="core/validation/validation.module.js"></script>
+    <script src="core/validation/validation.service.js"></script>
+    <script src="core/csv-parser/csv-parser.module.js"></script>
+    <script src="core/csv-parser/csv-parser.service.js"></script>
+    <script src="core/xml-parser/xml-parser.module.js"></script>
+    <script src="core/xml-parser/xml-parser.service.js"></script> 
+
+    <script src="home-page/home-page.module.js"></script>
+    <script src="home-page/home-page.component.js"></script>
+    <script src="validation-page/validation-page.module.js"></script>
+    <script src="validation-page/validation-page.component.js"></script>
+
+<!--
+    <script src="core/checkmark/checkmark.filter.js"></script>
+-->
+  </head>
+  <body>
+
+    <nav class="navbar navbar-default" ng-controller="MainCtrl">
+      <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">MT940 Validator</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav">
+            <li><a href="#!/home">Home </a></li>
+            <li><a href="#!/validation">Validation</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="" ng-click="logout()"><span class="glyphicon glyphicon-off"></span> Sign out user {{user}}</a></li>
+          </ul>
+        </div><!-- /.navbar-collapse -->
+      </div><!-- /.container-fluid -->
+    </nav>
+
+    <div class="view-container">
+      <div ng-view class="view-frame"></div>
+    </div>
+
+  </body>
+</html>
