@@ -12,6 +12,7 @@
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
     "angular-file-upload": "2.5.x",
-    "js-sorted-set": "0.x.x"
+    "js-sorted-set": "0.x.x",
+    "angular-xml": "2.2.x"
   }
 }

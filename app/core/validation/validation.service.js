@@ -68,7 +68,7 @@ angular.
                   if (msg.length > 0) {
                     msg += "<br/>";
                   }
-                  msg += "ERR: End balance " + line[3] + " is not equal to start balance + mutation!";
+                  msg += "ERR: End balance " + line[5] + " is not equal to start balance + mutation (" + sum + ")!";
                 }
               }
             }
