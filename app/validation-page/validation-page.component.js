@@ -1,56 +1,55 @@
 'use strict';
 
-// Register `phoneDetail` component, along with its associated controller and template
+// Register `validationModule` component, along with its associated controller and template
 angular.
   module('validationModule').
   component('validationModule', {
     templateUrl: 'validation-page/validation-page.template.html',
-    controller: ['$location', 'ValidationService', 'XMLParser', 'CSVParser',
-      function ValidationCtrl($location, ValidationService, XMLParser, CSVParser) {
-        console.log("ValidationCtrl called!");
+    controller: ['ValidationService', 'XMLParser', 'CSVParser', 'AlertService',
+      function ValidationCtrl(ValidationService, XMLParser, CSVParser, AlertService) {
 
         var self = this;
-        self.showReport = false;
-        self.parsingError = false;
-        self.parsingErrorMessage = "";
 
+        // variable to control visibility of the report div. Should be visible only when we successfully
+        // processed a file.
+        self.showReport = false;
+
+        // boilerplate to call the parser and create an alert in case of malformed files
+        var parseData = function(parser, fileName, data) {
+          try {
+            var splitData = parser.parse(data);
+            var result = ValidationService.validate(splitData);
+            // console.log(result);
+            // console.log(result.toString());
+            return(result);
+          } catch (e) {
+            AlertService.add('danger', '<strong>Parsing error</strong> for file <strong>' + 
+              fileName + ': </strong>' + e);
+            return(undefined);
+          }
+        }
+
+        // this function takes care of identifying the type of the file and choosing the right parser
+        // accordingly. It also needs to control the visual elements of the page.
         self.processData = function() {
           self.showReport = false;
-          self.parsingError = false;
-          self.parsingErrorMessage = "";
+          // clean alerts
+          AlertService.deleteAll();
           var uploaded = self.fileContent;
+          // console.log(self.fileContent);
           if (uploaded[0].type == "text/csv") {
-            try {
-              var splitData = CSVParser.parse(uploaded[1]);
-              console.log("CSV parsing succeeded!");
-              console.log(splitData);
-              self.validationReport = ValidationService.validate(splitData);
+            self.validationReport = parseData(CSVParser, uploaded[0].name, uploaded[1]);
+            if (self.validationReport) {
               self.showReport = true;
-            } catch (e) {
-              // TODO: implement bootstrap alert
-              self.parsingError = true;
-              self.parsingErrorMessage = e;
-              console.log("CSV parsing failed!");
-              console.log(e);
-            }
+            } 
           } else {
             if (uploaded[0].type == "text/xml") {
-              try {
-                var splitData = XMLParser.parse(uploaded[1]);
-                console.log("XML parsing succeeded!");
-                console.log(splitData);
-                self.validationReport = ValidationService.validate(splitData);
+              self.validationReport = parseData(XMLParser, uploaded[0].name, uploaded[1]);
+              if (self.validationReport) {
                 self.showReport = true;
-              } catch(e) {
-                // TODO: implement bootstrap alert
-                self.parsingError = true;
-                self.parsingErrorMessage = e;
-                console.log("XML parsing failed!");
-                console.log(e);
-              }
+              } 
             } else {
-              //TODO: implement bootstrap alert
-              console.log("Wrong data type!");
+              AlertService.add('danger', '<strong>Unsupported file type:</strong> ' + uploaded[0].type);
             }
           }
         };

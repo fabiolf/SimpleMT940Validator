@@ -1,0 +1,12 @@
+<script type="text/ng-template" id="alert.html">
+  <div ng-transclude></div>
+</script>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12">
+      <div uib-alert ng-repeat="alert in $ctrl.alerts" ng-class="'alert-' + (alert.type || 'warning')" close=" $ctrl.closeAlert($index)">
+        <span ng-bind-html="alert.msg"></span>
+      </div>
+    </div>
+  </div>
+</div>

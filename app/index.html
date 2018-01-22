@@ -6,34 +6,6 @@
     <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="app.css" />
 
-    <script src="bower_components/jquery/dist/jquery.js"></script>
-    <script src="bower_components/angular/angular.js"></script>
-    <script src="bower_components/angular-resource/angular-resource.js"></script>
-    <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
-    <script src="bower_components/js-sorted-set/sorted-set.min.js"></script>
-    <script src="bower_components/x2js/xml2json.min.js"></script>
-    <script src="app.module.js"></script>
-    <script src="app.config.js"></script>
-    <script src="app.controller.js"></script>
-
-    <script src="core/core.module.js"></script>
-    <script src="core/validation/validation.module.js"></script>
-    <script src="core/validation/validation.service.js"></script>
-    <script src="core/csv-parser/csv-parser.module.js"></script>
-    <script src="core/csv-parser/csv-parser.service.js"></script>
-    <script src="core/xml-parser/xml-parser.module.js"></script>
-    <script src="core/xml-parser/xml-parser.service.js"></script> 
-
-    <script src="home-page/home-page.module.js"></script>
-    <script src="home-page/home-page.component.js"></script>
-    <script src="validation-page/validation-page.module.js"></script>
-    <script src="validation-page/validation-page.component.js"></script>
-
-<!--
-    <script src="core/checkmark/checkmark.filter.js"></script>
--->
   </head>
   <body>
 
@@ -63,9 +35,48 @@
       </div><!-- /.container-fluid -->
     </nav>
 
+    <div class="container">
+      <alert-module></alert-module>
+    </div>
+
     <div class="view-container">
       <div ng-view class="view-frame"></div>
     </div>
+
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.min.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-file-upload/dist/angular-file-upload.min.js"></script>
+    <script src="bower_components/js-sorted-set/sorted-set.min.js"></script>
+    <script src="bower_components/x2js/xml2json.min.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="app.module.js"></script>
+    <script src="app.config.js"></script>
+    <script src="app.controller.js"></script>
+
+    <script src="alert-module/alert-module.module.js"></script>
+    <script src="alert-module/alert-module.component.js"></script>
+    <script src="alert-module/alert-module.service.js"></script>
+    <script src="core/core.module.js"></script>
+    <script src="core/validation/validation.module.js"></script>
+    <script src="core/validation/validation.service.js"></script>
+    <script src="core/csv-parser/csv-parser.module.js"></script>
+    <script src="core/csv-parser/csv-parser.service.js"></script>
+    <script src="core/xml-parser/xml-parser.module.js"></script>
+    <script src="core/xml-parser/xml-parser.service.js"></script> 
+
+    <script src="home-page/home-page.module.js"></script>
+    <script src="home-page/home-page.component.js"></script>
+    <script src="validation-page/validation-page.module.js"></script>
+    <script src="validation-page/validation-page.component.js"></script>
+
+<!--
+    <script src="core/checkmark/checkmark.filter.js"></script>
+-->
+
 
   </body>
 </html>

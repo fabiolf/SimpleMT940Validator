@@ -9,10 +9,12 @@
     "angular-mocks": "1.5.x",
     "angular-resource": "1.5.x",
     "angular-route": "1.5.x",
+    "angular-animate": "1.5.x",
     "bootstrap": "3.3.x",
     "jquery": "2.2.x",
     "angular-file-upload": "2.5.x",
     "js-sorted-set": "0.x.x",
-    "angular-xml": "2.2.x"
+    "angular-xml": "2.2.x",
+    "angular-bootstrap": "2.5.x"
   }
 }

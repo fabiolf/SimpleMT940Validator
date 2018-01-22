@@ -5,5 +5,6 @@ angular.module('mt940ValidatorApp', [
   'ngRoute',
   'core',
   'homeModule',
-  'validationModule'
+  'validationModule',
+  'alertModule'
 ]);

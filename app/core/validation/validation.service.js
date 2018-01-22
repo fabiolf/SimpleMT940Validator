@@ -2,9 +2,9 @@
 
 angular.
   module('core.validationService').
-  factory('ValidationService', ['$resource', '$sce',
-    function($resource, $sce) {
-      console.log("validation service called!");
+  factory('ValidationService', ['$sce',
+    function($sce) {
+      // console.log("validation service called!");
       return {
         validate: function validate(data) {
           // response will be an array with each element having the transaction reference and the validation status
@@ -50,7 +50,7 @@ angular.
               if (msg.length > 0) {
                 msg += "<br/>";
               }
-              msg += "ERR: Mutation " + line[3] + " is not a valid number!";
+              msg += "ERR: Mutation " + line[4] + " is not a valid number!";
             }
             //line[5] is the end balance, must be a number and the sum of start balance and mutation
             // console.log(line[5]);
@@ -58,11 +58,11 @@ angular.
               if (msg.length > 0) {
                 msg += "<br/>";
               }
-              msg += "ERR: End balance " + line[3] + " is not a valid number!";
+              msg += "ERR: End balance " + line[5] + " is not a valid number!";
             } else {
               // since it is a number, let's validate the sum of start balance and mutation
               var sum = Number(line[3]) + Number(line[4]);
-              console.log("start: " + line[3] + ", mutation: " + line[4] + "sum: " + sum + ", sum.toFixed(2): " + sum.toFixed(2) + ", end: " + line[5]);
+              // console.log("start: " + line[3] + ", mutation: " + line[4] + ", sum: " + sum + ", sum.toFixed(2): " + sum.toFixed(2) + ", end: " + line[5]);
               if (!isNaN(line[3]) && !isNaN(line[4])) {
                 if ((Number(line[3]) + Number(line[4])).toFixed(2) != Number(line[5])) {
                   if (msg.length > 0) {
@@ -83,14 +83,5 @@ angular.
           return(response);
         }
       };
-      /*
-      return $resource('phones/:phoneId.json', {}, {
-        query: {
-          method: 'GET',
-          params: {phoneId: 'phones'},
-          isArray: true
-        }
-      });
-      */
     }
   ]);

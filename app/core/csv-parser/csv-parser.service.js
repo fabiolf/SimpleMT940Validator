@@ -2,14 +2,17 @@
 
 angular.
   module('core.csvParser').
-  factory('CSVParser', ['$resource',
-    function($resource) {
-      console.log("csv parser called!");
+  factory('CSVParser',
+    function() {
+      // console.log("csv parser called!");
       return {
+        // this service has just one method, the 'parse' method. It receives a csv string
+        // and returns an array of arrays. Each line (item of the outer array) is an array
+        // of columns.
+        // the only format validation it does is to verify the number of columns of each line
+        // that should match the number of columns of the header. If it finds an error, it
+        // throws an exception with an error message.
         parse: function parseCSV(allData) {
-          console.log("TODO: implement the csv parser");
-          console.log(allData);
-
           var splitData = allData.split(/\r\n|\n/);
           var headers = splitData[0].split(',');
 
@@ -24,7 +27,8 @@ angular.
                 final[i] = line;
               } else {
                 //something is wrong with the file
-                throw "ERROR: Number of columns of line " + i + " does not match number of headers!";
+                var lineNumber = i+1;
+                throw "ERROR: Number of columns of line " + lineNumber + " does not match number of headers!";
               }
             }
           }
@@ -33,5 +37,4 @@ angular.
 
         }
       };
-    }
-  ]);
+    });

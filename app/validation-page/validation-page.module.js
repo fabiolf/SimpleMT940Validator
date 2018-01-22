@@ -5,7 +5,8 @@ angular.module('validationModule', [
   'ngRoute',
   'core.validationService',
   'core.csvParser',
-  'core.xmlParser'
+  'core.xmlParser',
+  'alertModule'
 ]).directive('fileReader', function() {
   return {
     scope: {

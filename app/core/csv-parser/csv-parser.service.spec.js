@@ -1,44 +1,50 @@
 'use strict';
 
 describe('CSVParser', function() {
-  /*
-  var $httpBackend;
-  var Phone;
-  var phonesData = [
-    {name: 'Phone X'},
-    {name: 'Phone Y'},
-    {name: 'Phone Z'}
-  ];
 
+  var parser;
   // Add a custom equality tester before each test
   beforeEach(function() {
     jasmine.addCustomEqualityTester(angular.equals);
   });
 
-  // Load the module that contains the `Phone` service before each test
+  // Load the module that contains the `csdvParser` service before each test
   beforeEach(module('core.csvParser'));
 
-  // Instantiate the service and "train" `$httpBackend` before each test
-  beforeEach(inject(function(_$httpBackend_, _Phone_) {
-    $httpBackend = _$httpBackend_;
-    $httpBackend.expectGET('phones/phones.json').respond(phonesData);
-
-    Phone = _Phone_;
+  beforeEach(inject(function(_CSVParser_) {
+    parser = _CSVParser_;
   }));
 
-  // Verify that there are no outstanding expectations or requests after each test
-  afterEach(function () {
-    $httpBackend.verifyNoOutstandingExpectation();
-    $httpBackend.verifyNoOutstandingRequest();
+  it('should parse well formed UNIX CSV files correctly', function() {
+    var validFileContent = "col1,col2,col3\nval1,val2,val3\nval4,val5,val6";
+    var parsedData = parser.parse(validFileContent);
+    expect(parsedData.length).toEqual(3);
+    expect(parsedData[0].length).toEqual(3);
+    expect(parsedData[0][0]).toEqual('col1');
+    expect(parsedData[2][2]).toEqual('val6');
+
   });
 
-  it('should fetch the phones data from `/phones/phones.json`', function() {
-    var phones = Phone.query();
+  it('should parse well formed Windows CSV files correctly', function() {
+    var validFileContent = "col1,col2,col3\r\nval1,val2,val3\r\nval4,val5,val6";
+    var parsedData = parser.parse(validFileContent);
+    expect(parsedData.length).toEqual(3);
+    expect(parsedData[0].length).toEqual(3);
+    expect(parsedData[0][0]).toEqual('col1');
+    expect(parsedData[2][2]).toEqual('val6');
 
-    expect(phones).toEqual([]);
-
-    $httpBackend.flush();
-    expect(phones).toEqual(phonesData);
   });
-  */
+
+  it('should throw an exception when CSV is invalid', function() {
+    var invalidFileContent = "col1,col2,col3\nval1,val3\nval4,val5,val6";
+    var parsedData = [];
+    try {
+      parsedData = parser.parse(invalidFileContent);
+    } catch(e) {
+      expect(e).toEqual('ERROR: Number of columns of line 2 does not match number of headers!');
+    }
+    expect(parsedData).toEqual([]);
+  });
+
+ 
 });
