@@ -4,7 +4,7 @@
   "version": "0.1.0",
   "private": true,
   "repository": "later",
-  "devDependencies": {
+  "dependencies": {
     "bower": "^1.7.7",
     "http-server": "^0.9.0",
     "jasmine-core": "^2.4.1",
