@@ -1,10 +1,17 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <label class="btn btn-primary" for="upload-csv-xml">Choose file</label>
-      <input type="file" accept=".csv,.xml" name="csv-xml" id="upload-csv-xml" file-reader="$ctrl.fileContent" />
-      <button class="btn btn-primary" ng-click='$ctrl.processData($event)' ng-disabled="!($ctrl.fileContent[0].name)">Validate!</button>
-      <div><p>Selected file: {{$ctrl.fileContent[0].name}}</p></div>
+      <div>
+        <h2>Step 1:</h2>
+        <label class="btn btn-primary" for="upload-csv-xml">Choose file</label>
+        <input type="file" accept=".csv,.xml" name="csv-xml" id="upload-csv-xml" file-reader="$ctrl.fileContent" />
+      </div>
+      <div ng-show="$ctrl.fileContent[0].name">
+        <div><p>Selected file: {{$ctrl.fileContent[0].name}}</p></div>
+        <h2>Step 2:</h2>
+        <button class="btn btn-primary" ng-click='$ctrl.processData($event)'> Validate!</button>
+      </div>
+
     </div>
       <!-- 
       <div nv-file-drop="" uploader="$ctrl.uploader">
@@ -21,7 +28,7 @@
 
     <div class="col-md-9" ng-show="$ctrl.showReport">
       <div><h2>Report of file <b>{{$ctrl.processedFileName}}</b> validation</h2></div>
-        <table class="table">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Transaction Reference</th>

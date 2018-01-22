@@ -1,9 +1,8 @@
-# Simple MT940 Validator Application
-
+# Simplified MT940 Validator Application
 
 ## Overview
 
-This application aims at performing a few validations in a simplified **MT940** file format that can be either a CSV or XML file.
+This application aims at performing some validations in a simplified **MT940** file format that can be either a CSV or XML file.
 
 The focus of this application is in the Frontend. So, there is no complex backend to perform more complicated tasks such as access control. The application is hosted by a simple http server run by Node.js.
 
@@ -27,7 +26,7 @@ After setting up the needed infrastructure, to run the application simply follow
 
 When you browse the [http://localhost:8000/](http://localhost:8000/) starting point, the default route will be to the home page. It is just a welcome page describing in short what the Application does. To perform a validation, choose the _Validation_ item in the navigation bar on the top of the screen.
 
-That will open the Validation page, where the only active element will be the _Choose file_ button. Click the button to choose a file to be validated. The application will only let you choose .csv or .xml files. 
+That will open the Validation page, where the only active element will be the _Choose file_ button. Click the button to choose a file to be validated. The application will only let you choose .csv or .xml files.
 
 Once the file is chosen, click the _Validate!_ button to validate the file. The result will either be a table with every transaction reference and its validation status or an alert telling that something went wrong.
 
@@ -35,7 +34,7 @@ You can always click in the _Choose file_ button to select another file and repe
 
 ## Unit Testing
 
-For this project I used [Jasmine][jasmine] to create the specs for the tests and, as mentioned already, [Karma][karma] to run it. To run the tests, run `npm test`. A browser will start and connect to the Karma server. For this project, I used just Chrome as the only supported browser for unit testing, but the application was also tested in Safari and it runs just as well.
+For this project I used [Jasmine][jasmine] to create the specs for the tests and, as mentioned already, [Karma][karma] to run it. To run the tests, run `npm test`. A browser will start and connect to the Karma server. For this project, I used just Chrome and Firefox as the only supported browsers for unit testing, but the application was also tested in Safari and it runs just as well.
 
 Karma is defined by its `karma.conf.js` file, where its behaviour is specified. It will keep running and monitoring the specs files. If they are changed, the tests will be re-run. To close it, just hit `ctrl-c`.
 

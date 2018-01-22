@@ -23,7 +23,6 @@ describe('CSVParser', function() {
     expect(parsedData[0].length).toEqual(3);
     expect(parsedData[0][0]).toEqual('col1');
     expect(parsedData[2][2]).toEqual('val6');
-
   });
 
   it('should parse well formed Windows CSV files correctly', function() {
@@ -38,6 +37,7 @@ describe('CSVParser', function() {
 
   it('should throw an exception when CSV is invalid', function() {
     var invalidFileContent = "col1,col2,col3\nval1,val3\nval4,val5,val6";
+    //expect(parser.parse(invalidFileContent)).toThrow("ERROR: Number of columns of line 2 does not match number of headers!");
     var parsedData = [];
     try {
       parsedData = parser.parse(invalidFileContent);

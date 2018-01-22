@@ -27,7 +27,7 @@ angular.
               var transactionReference = Number(line[0]);
               if (transactionSet.contains(transactionReference)) {
                 if (msg.length > 0) {
-                  msg += "<br/>";
+                  msg += "<hr class='line-separator'/>";
                 }
                 msg += "ERR: Transaction reference " + line[0] + " is not unique!";
               } else {
@@ -37,21 +37,21 @@ angular.
             //line[3] is the start balance, must be a number
             if (isNaN(line[3])) {
               if (msg.length > 0) {
-                msg += "<br/>";
+                msg += "<hr class='line-separator'/>";
               }
               msg += "ERR: Start balance " + line[3] + " is not a valid number!";
             }
             //line[4] is the mutation, must be a number
             if (isNaN(line[4])) {
               if (msg.length > 0) {
-                msg += "<br/>";
+                msg += "<hr class='line-separator'/>";
               }
               msg += "ERR: Mutation " + line[4] + " is not a valid number!";
             }
             //line[5] is the end balance, must be a number and the sum of start balance and mutation
             if (isNaN(line[5])) {
               if (msg.length > 0) {
-                msg += "<br/>";
+                msg += "<hr class='line-separator'/>";
               }
               msg += "ERR: End balance " + line[5] + " is not a valid number!";
             } else {
@@ -60,7 +60,7 @@ angular.
               if (!isNaN(line[3]) && !isNaN(line[4])) {
                 if ((Number(line[3]) + Number(line[4])).toFixed(2) != Number(line[5])) {
                   if (msg.length > 0) {
-                    msg += "<br/>";
+                    msg += "<hr class='line-separator'/>";
                   }
                   msg += "ERR: End balance " + line[5] + " is not equal to start balance + mutation (" + sum + ")!";
                 }

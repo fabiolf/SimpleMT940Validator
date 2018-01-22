@@ -28,7 +28,7 @@ angular.
               } else {
                 //something is wrong with the file
                 var lineNumber = i+1;
-                throw s
+                throw "ERROR: Number of columns of line " + lineNumber + " does not match number of headers!";
               }
             }
           }
