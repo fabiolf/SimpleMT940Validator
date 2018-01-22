@@ -4,7 +4,6 @@ angular.
   module('core.xmlParser').
   factory('XMLParser',
       function() {
-      // console.log("xml parser called!");
       var x2js = new X2JS();
       return {
         // this service relies on X2JS library to parse the XML into a JSON object and then looks for

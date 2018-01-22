@@ -11,6 +11,7 @@ describe('CSVParser', function() {
   // Load the module that contains the `csdvParser` service before each test
   beforeEach(module('core.csvParser'));
 
+  // injects the CSVParser service
   beforeEach(inject(function(_CSVParser_) {
     parser = _CSVParser_;
   }));

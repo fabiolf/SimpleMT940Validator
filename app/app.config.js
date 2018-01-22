@@ -4,7 +4,6 @@ angular.
   module('mt940ValidatorApp').
   config(['$locationProvider' ,'$routeProvider',
     function config($locationProvider, $routeProvider) {
-      console.log("Routing called!")
       $locationProvider.hashPrefix('!');
 
       $routeProvider.

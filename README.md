@@ -1,272 +1,176 @@
-# AngularJS Phone Catalog Tutorial Application
+# Simple MT940 Validator Application
 
 
 ## Overview
 
-This application takes the developer through the process of building a web-application using
-AngularJS. The application is loosely based on the **Google Phone Gallery**, which no longer exists.
-Here is a historical reference: [Google Phone Gallery on WayBack][google-phone-gallery]
+This application aims at performing a few validations in a simplified **MT940** file format that can be either a CSV or XML file.
 
-Each tagged commit is a separate lesson teaching a single aspect of the framework.
-
-The full tutorial can be found at https://docs.angularjs.org/tutorial.
-
+The focus of this application is in the Frontend. So, there is no complex backend to perform more complicated tasks such as access control. The application is hosted by a simple http server run by Node.js.
 
 ## Prerequisites
 
-### Git
+### Node.js and npm
 
-- A good place to learn about setting up git is [here][git-setup].
-- You can find documentation and download git [here][git-home].
-
-### Node.js and Tools
-
+Node.js was used in the backend just to host a simple http server, to serve the pages. Moreover, [`npm`][npm] was used as the package manager for backend (with [Karma][karma] to run the unit tests and the http-server) and [`bower`][bower] for frontend. Just follow the steps bellow to setup all the needed infrastructure to run the application.
 - Get [Node.js][node].
-- Install the tool dependencies: `npm install`
+- Install the tool dependencies (it reads the dependencies from `package.json`): `npm install`
 
+Bower will be installed by `npm` (as specified in `package.json`) and after that, `npm` will automatically run `bower install`, which will read `bower.json` and perform frontend packages installation.
 
-## Workings of the Application
+## Running the Application
 
-- The application filesystem layout structure is based on the [angular-seed][angular-seed] project.
-- There is no dynamic backend (no application server) for this application. Instead we fake the
-  application server by fetching static JSON files.
-- Read the _Development_ section at the end to familiarize yourself with running and developing
-  an Angular application.
-
-
-## Commits / Tutorial Outline
-
-You can check out any point of the tutorial using:
-
-```
-git checkout step-?
-```
-
-To see the changes made between any two lessons use the `git diff` command:
-
-```
-git diff step-?..step-?
-```
-
-### step-0 _Bootstrapping_
-
-- Add the 'angular.js' script.
-- Add the `ngApp` directive to bootstrap the application.
-- Add a simple template with an expression.
-
-### step-1 _Static Template_
-
-- Add a stylesheet file ('app/app.css').
-- Add a static list with two phones.
-
-### step-2 _Angular Templates_
-
-- Convert the static phone list to dynamic by:
-  - Creating a `PhoneListController` controller.
-  - Extracting the data from HTML into the controller as an in-memory dataset.
-  - Converting the static document into a template with the use of the `ngRepeat` directive.
-- Add a simple unit test for the `PhoneListController` controller to show how to write tests and
-  run them using Karma.
-
-### step-3 _Components_
-
-- Introduce components.
-- Combine the controller and the template into a reusable, isolated `phoneList` component.
-- Refactor the application and tests to use the `phoneList` component.
-
-### step-4 _Directory and File Organization_
-
-- Refactor the layout of files and directories, applying best practices and techniques that will
-  make the application easier to maintain and expand in the future:
-  - Put each entity in its own file.
-  - Organize code by feature area (instead of by function).
-  - Split code into modules that other modules can depend on.
-  - Use external templates in `.html` files (instead of inline HTML strings).
-
-### step-5 _Filtering Repeaters_
-
-- Add a search box to demonstrate:
-  - How the data-binding works on input fields.
-  - How to use the `filter` filter.
-  - How `ngRepeat` automatically shrinks and grows the number of phones in the view.
-- Add an end-to-end test to:
-  - Show how end-to-end tests are written and used.
-  - Prove that the search box and the repeater are correctly wired together.
-
-### step-6 _Two-way Data Binding_
-
-- Add an `age` property to the phone model.
-- Add a drop-down menu to control the phone list order.
-- Override the default order value in controller.
-- Add unit and end-to-end tests for this feature.
-
-### step-7 _XHR & Dependency Injection_
-
-- Replace the in-memory dataset with data loaded from the server (in the form of a static
-  'phone.json' file to keep the tutorial backend agnostic):
-  - The JSON data is loaded using the `$http` service.
-- Demonstrate the use of `services` and `dependency injection` (DI):
-  - `$http` is injected into the controller through DI.
-  - Introduce DI annotation methods: `.$inject` and inline array
-
-### step-8 _Templating Links & Images_
-
-- Add a phone image and links to phone pages.
-- Add an end-to-end test that verifies the phone links.
-- Tweak the CSS to style the page just a notch.
-
-### step-9 _Routing & Multiple Views_
-
-- Introduce the `$route` service, which allows binding URLs to views for routing and deep-linking:
-  - Add the `ngRoute` module as a dependency.
-  - Configure routes for the application.
-  - Use the `ngView` directive in 'index.html'.
-- Create a phone list route (`/phones`):
-  - Map `/phones` to the existing `phoneList` component.
-- Create a phone detail route (`/phones/:phoneId`):
-  - Map `/phones/:phoneId` to a new `phoneDetail` component.
-  - Create a dummy `phoneDetail` component, which displays the selected phone ID.
-  - Pass the `phoneId` parameter to the component's controller via `$routeParams`.
-
-### step-10 _More Templating_
-
-- Implement fetching data for the selected phone and rendering to the view:
-  - Use `$http` in `PhoneDetailController` to fetch the phone details from a JSON file.
-  - Create the template for the detail view.
-- Add CSS styles to make the phone detail page look "pretty-ish".
-
-### step-11 _Custom Filters_
-
-- Implement a custom `checkmark` filter.
-- Update the `phoneDetail` template to use the `checkmark` filter.
-- Add a unit test for the `checkmark` filter.
-
-### step-12 _Event Handlers_
-
-- Make the thumbnail images in the phone detail view clickable:
-  - Introduce a `mainImageUrl` property on `PhoneDetailController`.
-  - Implement the `setImage()` method for changing the main image.
-  - Use `ngClick` on the thumbnails to register a handler that changes the main image.
-  - Add an end-to-end test for this feature.
-
-### step-13 _REST and Custom Services_
-
-- Replace `$http` with `$resource`.
-- Create a custom `Phone` service that represents the RESTful client.
-- Use a custom Jasmine equality tester in unit tests to ignore irrelevant properties.
-
-### step-14 _Animations_
-
-- Add animations to the application:
-  - Animate changes to the phone list, adding, removing and reordering phones with `ngRepeat`.
-  - Animate view transitions with `ngView`.
-  - Animate changes to the main phone image in the phone detail view.
-- Showcase three different kinds of animations:
-  - CSS transition animations.
-  - CSS keyframe animations.
-  - JavaScript-based animations.
-
-
-## Development with `angular-phonecat`
-
-The following docs describe how you can test and develop this application further.
-
-### Installing Dependencies
-
-The application relies upon various Node.js tools, such as [Bower][bower], [Karma][karma] and
-[Protractor][protractor]. You can install these by running:
-
-```
-npm install
-```
-
-This will also run Bower, which will download the Angular files needed for the current step of the
-tutorial.
-
-Most of the scripts described below will run this automatically but it doesn't do any harm to run
-it whenever you like.
-
-### Running the Application during Development
-
+After setting up the needed infrastructure, to run the application simply follow the following steps:
 - Run `npm start`.
-- Navigate your browser to [http://localhost:8000/](http://localhost:8000/) to see the application 
-  running.
+- Navigate your browser to [http://localhost:8000/](http://localhost:8000/) to see the application running.
 
-### Unit Testing
+### Usage
 
-We recommend using [Jasmine][jasmine] and [Karma][karma] for your unit tests/specs, but you are free
-to use whatever works for you.
+When you browse the [http://localhost:8000/](http://localhost:8000/) starting point, the default route will be to the home page. It is just a welcome page describing in short what the Application does. To perform a validation, choose the _Validation_ item in the navigation bar on the top of the screen.
 
-- Start Karma with `npm test`.
-- A browser will start and connect to the Karma server. Chrome and Firefox are the default browsers,
-  others can be captured by loading the same URL or by changing the `karma.conf.js` file.
-- Karma will sit and watch your application and test JavaScript files. To run or re-run tests just
-  change any of your these files.
+That will open the Validation page, where the only active element will be the _Choose file_ button. Click the button to choose a file to be validated. The application will only let you choose .csv or .xml files. 
 
-### End-to-End Testing
+Once the file is chosen, click the _Validate!_ button to validate the file. The result will either be a table with every transaction reference and its validation status or an alert telling that something went wrong.
 
-We recommend using [Protractor][protractor] for end-to-end (e2e) testing.
+You can always click in the _Choose file_ button to select another file and repeat the process.
 
-It requires a webserver that serves the application. See the
-_Running the Application during Development_ section, above.
+## Unit Testing
 
-- Serve the application with: `npm start`
-- In a separate terminal/command line window run the e2e tests: `npm run protractor`.
-- Protractor will execute the e2e test scripts against the web application itself. The project is
-  set up to run the tests on Chrome directly. If you want to run against other browsers, you must 
-  modify the configuration at `e2e-tests/protractor-conf.js`.
+For this project I used [Jasmine][jasmine] to create the specs for the tests and, as mentioned already, [Karma][karma] to run it. To run the tests, run `npm test`. A browser will start and connect to the Karma server. For this project, I used just Chrome as the only supported browser for unit testing, but the application was also tested in Safari and it runs just as well.
 
-**Note:**
-Under the hood, Protractor uses the [Selenium Standalone Server][selenium], which in turn requires 
-the [Java Development Kit (JDK)][jdk] to be installed on your local machine. Check this by running 
-`java -version` from the command line.
+Karma is defined by its `karma.conf.js` file, where its behaviour is specified. It will keep running and monitoring the specs files. If they are changed, the tests will be re-run. To close it, just hit `ctrl-c`.
 
-If JDK is not already installed, you can download it [here][jdk-download].
+## Application Description
 
+- The application filesystem layout structure is based on the [angular-seed][angular-seed] project. For this project Angular v1.5.11 was used.
+- There is no dynamic backend (no application server) for this application as the focus of the assignment seemed to be in the frontend.
+- For the visual elements of the user interface [Bootstrap][bootstrap] v3.3.7 was used together with [UI Bootstrap][ui-bootstrap] to handle some elements behaviour in an AngularJS Application.
+- Other used modules:
+  - Angular-xml: angularJS module to handle XML files, that includes the X2JS library, which was used to parse the XML contents into a JSON object, easier to manipulate.
+  - js-sorted-set: angularJS module that implements a _sorted-set_ data structured using a _Red-Black-Tree_ under the hoods. Offers great _insert_ and _contains_ performance (both runs in logarithmic time). Used to determine if a transaction is unique.
+  - angular-mocks: used in the Jasmine unit tests, to mock dependencies injected into the tested modules.
+
+The next sections explain each module of the Application in more details.
+
+### Core Module
+
+The core module contains the services reused in other parts of the Application.
+
+#### CSVParser
+
+Reusable CSV file parser. In its API there is only one method `parse`, which receives the data to be parsed, in CSV format. The output is an Array where each element corresponds to a line of the original file. Each line is itself another Array, where each item represents one column of the line.
+
+The only validation performed is if each line has the same number of columns that the header line has. In case of an invalid file, the service throws an exception, that must be caught by the invoking module.
+
+It has its own set of unit tests, located at the `csv-parser.service.specs.js`.
+
+#### XMLParser
+
+Reusable XML file parser. This service relies on X2JS library (bundled in the `angular.xml` module) to parse the XML into a JSON object. Its API is the same as the CSVParser above, having only one method `parse`. This method, however, is tightly coupled with the mt940 format specified by the project requirement and creates the same Array of Arrays described above, looking for specific elements in the parsed XML file.
+
+It doesn't really perform any additional validations, apart from the ones already done by X2JS library, which returns either a valid json object or `undefined`. So, if the XML is malformed, it will return `undefined` and this module will throw an exception, that, again, must be handled by the invoking module.
+
+It has its own set of unit tests, located at the `xml-parser.service.specs.js`.
+
+#### ValidationService
+
+This module implements the validations specified in the project requirements:
+
+- all transaction references should be unique
+- the end balance needs to be validated
+
+It receives an Array of Arrays, generated by the parsers, and perform the validations above together with some others:
+
+- transaction references should be a valid number
+- start balance should be a valid number
+- mutation should be a valid number
+- end balance should be a valid number
+
+I decided to include these extra validations since those are the fields I would be working with and I needed to make sure they are as expected.
+
+This module generates a validation object, which is an Array containing the required output to create the report. Each line of the array is composed by:
+- transaction reference
+- the status of the validation process for that transaction reference.
+
+It has its own set of unit tests, located at the `validation.service.specs.js`.
+
+### Alert module
+
+In some parts of the Application, some messages needed to be displayed for the user. Bootstrap comes bundled with a nice view alert system. This module encapsulates those system into a component/directive (that has a place in the main page, just above the views area), and provides a service to be called anywhere in the Application (provided the needed dependency is included in the invoking module).
+
+This module is composed of:
+- a template, with the structure of the HTML that should be displayed in the Application alert area.
+- a simple controller to describe the dynamic behavior of that alert area:
+  - it only has the methods `addAlert` and `closeAlert`, that handle the dynamicity of that part of the Application.
+- a service, to provide an API to be reused anywhere in the Application. The API is described below:
+  - add: inserts a new Alert into the Alert area (used, for instance, when an exception is thrown by the parsers)
+  - get: retrieves the full list of alerts (used by ng-repeat to show alerts in the screen)
+  - delete: removes one specific alert from the list (used by the alert close button)
+  - deleteAll: cleans all alerts in the list (when a new file is being validated)
+
+This module unit tests are located in the files `alert-module.service.specs.js` and `alert-module.component.specs.js`.
+
+### Home Page
+
+This simple module is responsible to show the welcome screen of the Application. It has no dynamic behaviour and, therefore, no controller attached. It has only the HTML template to be shown by the ng-view directive once the routing system activates it.
+
+It has no unit tests, since no behaviour was implemented.
+
+### Validation Page
+
+This module is responsible for the Validation screen of the Application. It comprises the HTML template shown to the user as well as a controller, that specifies its dynamic behaviour.
+
+This module also have a custom directive `<file-reader>`, responsible to read the text file chosen by the user and extract its content into a controller variable. This controller variable is then used in the parsing phase.
+
+After the parsing and the validation phase, angular `ng-repeat` directive is used to display the report, that is kept hidden by `ng-show` while we don't have anything to show.
+
+The report is shown using a paginated table format. For those 10-12 records used in the example files, pagination would not be required. But in a real world application we would have thousands of records and it would be impossible to show everyone at once to the used.
+
+This module's unit tests are located in the `validation-page.component.specs.js` file.
 
 ## Application Directory Layout
 
 ```
 app/                     --> all the source code of the app (along with unit tests)
-  bower_components/...   --> 3rd party JS/CSS libraries, including Angular and jQuery
+  bower_components/...   --> 3rd party JS/CSS libraries, including Angular, jQuery and others used in the Application
   core/                  --> all the source code of the core module (stuff used throughout the app)
-    checkmark/...        --> files for the `checkmark` filter, including JS source code, specs
-    phone/...            --> files for the `core.phone` submodule, including JS source code, specs
+    csv-parser/...       --> files for the `core.csvParser` submodule, including JS source code, specs
+    validation/...       --> files for the `core.validationService` submodule, including JS source code, specs
+    xml-parser/...       --> files for the `core.xmlParser` submodule, including JS source code, specs
     core.module.js       --> the core module
+  home-page/...          --> files for the `homeModule` module, including JS source code and HTML templates
   img/...                --> image files
-  phone-detail/...       --> files for the `phoneDetail` module, including JS source code, HTML templates, specs
-  phone-list/...         --> files for the `phoneList` module, including JS source code, HTML templates, specs
-  phones/...             --> static JSON files with phone data (used to fake a backend API)
-  app.animations.css     --> hooks for running CSS animations with `ngAnimate`
-  app.animations.js      --> hooks for running JS animations with `ngAnimate`
-  app.config.js          --> app-wide configuration of Angular services
-  app.css                --> default stylesheet
+  validation-page/...    --> files for the `validationModule` module, including JS source code, HTML templates, specs
+  app.config.js          --> app-wide configuration of Angular routing service
+  app.controller.js      --> Higher level Application dynamic behaviour
+  app.css                --> default stylesheet for the Application
   app.module.js          --> the main app module
   index.html             --> app layout file (the main HTML template file of the app)
 
-e2e-tests/               --> config and source files for e2e tests
-  protractor.conf.js     --> config file for running e2e tests with Protractor
-  scenarios.js           --> e2e specs
-
 node_modules/...         --> development tools (fetched using `npm`)
-
-scripts/                 --> handy scripts
-  private/...            --> private scripts used by the Angular Team to maintain this repo
-  update-repo.sh         --> script for pulling down the latest version of this repo (!!! DELETES ALL CHANGES YOU HAVE MADE !!!)
 
 bower.json               --> Bower specific metadata, including client-side dependencies
 karma.conf.js            --> config file for running unit tests with Karma
 package.json             --> Node.js specific metadata, including development tools dependencies
-```
+.gitignore               --> git file to specify ignorable files that should not be added into the versioning system
 
+instructions.html        --> Instructions provided by Rabobank for this assignment
+records.csv              --> CSV file example with transactions
+records.xml              --> XML file example with transactions
+records-invalid.csv      --> invalid CSV file example with broken structure
+records-invalid.xml      --> invalid XML file example with a XML format error
+records-invalid-tag.xml  --> valid XML file but with some records lacking required tags for the assignment (transaction reference and mutation, for instance)
+README.md                --> This file
+```
 
 ## Contact
 
-For more information on AngularJS, please check out https://angularjs.org/.
+For more information on this project, please contact me [Fabio Fonseca](mailto:fabio.l.fonseca@gmail.com).
 
 
 [angular-seed]: https://github.com/angular/angular-seed
 [bower]: http://bower.io/
+[bootstrap]: https://getbootstrap.com/docs/3.3/
+[ui-bootstrap]: https://angular-ui.github.io/bootstrap/
 [git-home]: https://git-scm.com/
 [git-setup]: https://help.github.com/articles/set-up-git
 [google-phone-gallery]: http://web.archive.org/web/20131215082038/http://www.android.com/devices
@@ -277,3 +181,4 @@ For more information on AngularJS, please check out https://angularjs.org/.
 [node]: https://nodejs.org/
 [protractor]: http://www.protractortest.org/
 [selenium]: http://docs.seleniumhq.org/
+[npm]: https://www.npmjs.com/

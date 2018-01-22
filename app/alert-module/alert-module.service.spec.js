@@ -11,6 +11,7 @@ describe('alertModule', function() {
   // Load the module that contains the `alertModule` service before each test
   beforeEach(module('alertModule'));
 
+  // injecting the AlertService service for the tests
   beforeEach(inject(function(_AlertService_) {
     alertService = _AlertService_;
   }));

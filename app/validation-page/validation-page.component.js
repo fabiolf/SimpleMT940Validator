@@ -19,14 +19,11 @@ angular.
         self.reportCurrentPage = 1;
         self.reportItemsPerPage = Number(self.selectedOption);
 
-
         // boilerplate to call the parser and create an alert in case of malformed files
         var parseData = function(parser, fileName, data) {
           try {
             var splitData = parser.parse(data);
             var result = ValidationService.validate(splitData);
-            // console.log(result);
-            // console.log(result.toString());
             return(result);
           } catch (e) {
             AlertService.add('danger', '<strong>Parsing error</strong> for file <strong>' + 
@@ -42,7 +39,6 @@ angular.
           // clean alerts
           AlertService.deleteAll();
           var uploaded = self.fileContent;
-          // console.log(self.fileContent);
           if (uploaded[0].type == "text/csv") {
             self.validationReport = parseData(CSVParser, uploaded[0].name, uploaded[1]);
           } else {
@@ -58,19 +54,14 @@ angular.
             self.processedFileName = uploaded[0].name;
             self.totalReportItems = self.validationReport.length;
             self.reportNumPages = (self.totalReportItems / self.reportItemsPerPage);
-            console.log(self.reportNumPages);
             self.reportPageChanged();
-            // console.log(self.validationReport.length);
-            // console.log(self.reportNumPages);
           } 
-
         };
 
         self.reportPageChanged = function() {
           // page changed, adjust paginatedValidationReport accordingly
           var firstItem = (self.reportCurrentPage - 1) * self.reportItemsPerPage;
           var lastItem = self.reportCurrentPage * self.reportItemsPerPage;
-          console.log(firstItem + ", " + lastItem);
           self.paginatedValidationReport = self.validationReport.slice(firstItem, lastItem);
         }
 
@@ -79,7 +70,6 @@ angular.
           self.reportCurrentPage = 1; //reset to first page
           self.reportPageChanged();
         }
-
 
       }
     ]
