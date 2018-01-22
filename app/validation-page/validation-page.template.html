@@ -1,11 +1,10 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3">
-      <label for="upload-csv-xml">Click to choose CSV or XML file.</label>
+      <label class="btn btn-primary" for="upload-csv-xml">Choose file</label>
       <input type="file" accept=".csv,.xml" name="csv-xml" id="upload-csv-xml" file-reader="$ctrl.fileContent" />
-    </div>
-    <div class="col-md-2">
-      <button ng-click='$ctrl.processData($event)'>upload</button>
+      <button class="btn btn-primary" ng-click='$ctrl.processData($event)' ng-disabled="!($ctrl.fileContent[0].name)">Validate!</button>
+      <div><p>Selected file: {{$ctrl.fileContent[0].name}}</p></div>
     </div>
       <!--
       <div nv-file-drop="" uploader="$ctrl.uploader">
@@ -20,10 +19,8 @@
       </div>
       -->
 
-  </div>
-  <div class="row" ng-show="$ctrl.showReport">
-    <div class="col-md-12">
-      <div>Report of file <b>{{$ctrl.fileContent[0].name}}</b> validation</div>
+    <div class="col-md-9" ng-show="$ctrl.showReport">
+      <div><h2>Report of file <b>{{$ctrl.processedFileName}}</b> validation</h2></div>
         <table class="table">
             <thead>
                 <tr>
@@ -32,12 +29,15 @@
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat="item in $ctrl.validationReport">
+                <tr ng-repeat="item in $ctrl.paginatedValidationReport">
                     <td><strong>{{item[0]}}</strong></td>
                     <td><span ng-bind-html="item[1]"></span></td>
                 </tr>
             </tbody>
         </table>
+        <p>View <select ng-model="$ctrl.selectedOption" ng-change="$ctrl.setItemsPerPage()"><option>3</option><option>5</option><option>10</option><option>20</option><option>30</option><option>40</option><option>50</option></select> records at a time.</p>
+        <ul uib-pagination total-items="$ctrl.totalReportItems" ng-model="$ctrl.reportCurrentPage" max-size="5" class="pagination-sm" boundary-links="true" num-pages="$ctrl.reportNumPages" items-per-page="$ctrl.reportItemsPerPage" ng-change="$ctrl.reportPageChanged()"></ul>
+
     </div>
   </div>
 </div>

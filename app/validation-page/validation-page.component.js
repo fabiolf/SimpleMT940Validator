@@ -13,6 +13,12 @@ angular.
         // variable to control visibility of the report div. Should be visible only when we successfully
         // processed a file.
         self.showReport = false;
+        self.validationReport;
+        self.paginatedValidationReport;
+        self.selectedOption = "5";
+        self.reportCurrentPage = 1;
+        self.reportItemsPerPage = Number(self.selectedOption);
+
 
         // boilerplate to call the parser and create an alert in case of malformed files
         var parseData = function(parser, fileName, data) {
@@ -39,20 +45,41 @@ angular.
           // console.log(self.fileContent);
           if (uploaded[0].type == "text/csv") {
             self.validationReport = parseData(CSVParser, uploaded[0].name, uploaded[1]);
-            if (self.validationReport) {
-              self.showReport = true;
-            } 
           } else {
             if (uploaded[0].type == "text/xml") {
               self.validationReport = parseData(XMLParser, uploaded[0].name, uploaded[1]);
-              if (self.validationReport) {
-                self.showReport = true;
-              } 
             } else {
               AlertService.add('danger', '<strong>Unsupported file type:</strong> ' + uploaded[0].type);
+              return;
             }
           }
+          if (self.validationReport) {
+            self.showReport = true;
+            self.processedFileName = uploaded[0].name;
+            self.totalReportItems = self.validationReport.length;
+            self.reportNumPages = (self.totalReportItems / self.reportItemsPerPage);
+            console.log(self.reportNumPages);
+            self.reportPageChanged();
+            // console.log(self.validationReport.length);
+            // console.log(self.reportNumPages);
+          } 
+
         };
+
+        self.reportPageChanged = function() {
+          // page changed, adjust paginatedValidationReport accordingly
+          var firstItem = (self.reportCurrentPage - 1) * self.reportItemsPerPage;
+          var lastItem = self.reportCurrentPage * self.reportItemsPerPage;
+          console.log(firstItem + ", " + lastItem);
+          self.paginatedValidationReport = self.validationReport.slice(firstItem, lastItem);
+        }
+
+        self.setItemsPerPage = function() {
+          self.reportItemsPerPage = Number(self.selectedOption);
+          self.reportCurrentPage = 1; //reset to first page
+          self.reportPageChanged();
+        }
+
 
       }
     ]
